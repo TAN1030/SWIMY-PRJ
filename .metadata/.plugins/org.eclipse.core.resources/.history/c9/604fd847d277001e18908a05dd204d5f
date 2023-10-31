@@ -1,0 +1,12 @@
+package com.cassan.swimy.sampler;
+
+@Controller
+public class TestController {
+
+	@RequestMapping(value = "/test/hello")
+	@ResponseBody
+	public String helloRuckus(Model model) {
+		return "Hello Ruckus";
+	}
+	
+}

@@ -1,0 +1,13 @@
+https://wikidocs.net/205894
+https://ruckus.tistory.com/121
+https://ruckus.tistory.com/123
+
+1. JDK 17, 이클립스 (spring 4.0 sett)
+2. Spring starter Project 생성
+ - Gradle Kotlin / Rombok / thymeleaf
+ - 한글 인코딩 설정 
+ - run Spring boot app
+3. 리액트 프론트엔트 생성
+ - npx create-react-app swimy-front
+ - npm start
+4. 연동
