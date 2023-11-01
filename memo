@@ -1,6 +1,5 @@
-https://wikidocs.net/205894
-https://ruckus.tistory.com/121
-https://ruckus.tistory.com/123
+
+# 1Day (2023-10-31)
 
 1. JDK 17, 이클립스 (spring 4.0 sett)
 2. Spring starter Project 생성
@@ -10,4 +9,57 @@ https://ruckus.tistory.com/123
 3. 리액트 프론트엔트 생성
  - npx create-react-app swimy-front
  - npm start
-4. 연동
+4. 연동&빌드
+ - React > Webpack 기본설정 - npm run eject : 숨겨놓은 설정 파일들을 프로젝트 디렉토리에 표시
+ - gradle React build 설정 (${workspace_loc:/swimy}, front 위치변경)
+ - D:\WS\WS-2023\swimy\build\libs 에 빌드파일 생성확인
+
+## 참고자료
+- 스프링부트 기본 셋팅 : https://wikidocs.net/205894
+- 리액트 + 스프링부트 : https://ruckus.tistory.com/121 
+ ㄴ 리액트 웹팩 : https://maxkim-j.github.io/posts/cra-webpack-config/
+
+-----------------------------------------
+
+# 2Day (2023-11-01)
+1. AWS EC2 생성하기
+
+- https://king-ja.tistory.com/99
+- https://bbeomgeun.tistory.com/73
+
+2. mysql 설치
+ : AWS Linux의 yum에는 mysql 설치경로가 없다. `sudo yum install` 명령어로 yum repository 에 직접등록해 줘야함
+ - https://velog.io/@sysy123/AWS-EC2-AWS-Linux-%EC%84%9C%EB%B2%84-MySQL-%EC%84%A4%EC%B9%98
+2.1. 설치 
+ - AWS Problem: conflicting requests 에러 발생 (OS버전 문제)
+  => https://dev.classmethod.jp/articles/ec2-mysql-install-confilicting-requests-error-kr/
+ - Can 't connect to local MySQL server through socket (mysqld 폴더 설명)
+  => https://seong6496.tistory.com/324
+ - `sudo systemctl start mysqld`
+
+2.2. 계정생성 및 권한 부여 / 테스트 테이블생성 / DBeaver 연결
+ - https://chobopark.tistory.com/237
+ - 현재 root 계정과 비밀번호가 발급되어 있음. 비밀번호 변경 후 사용할 계정을 생성
+ - sudo grep 'temporary password' /var/log/mysqld.log
+ - mysql -u root + use mysql;
+```
+mysql> select host, user from user;
+mysql> create schema swimyDB;
+mysql> use swimyDB;
+mysql> grant all privileges on swimyDB.* to 'swimy'@'%'
+mysql> flush privileges;
+mysql> show grants for swimy@'%';
+mysql> select user();
+mysql> select database();
+```
+ - 로그인 : mysql -u swimy -p swimyDB
+
+
+
+
+
++ 도커.. 
+ => 앞서 AWS EC2에 Jenkins를 연결하는 글을 작성했는데 그 다음 Jenkins가 스스로 도커 컨테이너를 이용해 빌드와 테스트를 할 수 있도록 하려고 한다. 😄
++ 배포 (젠킨스 사용)
+ => https://velog.io/@hmyanghm/AWS-EC2%EC%97%90-Jenkins-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%B6%95
++ Mysql AWS 연동
