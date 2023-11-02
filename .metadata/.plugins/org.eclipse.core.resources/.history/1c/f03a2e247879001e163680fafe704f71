@@ -1,0 +1,14 @@
+package com.cassan.swimy.sampler.service;
+
+@Service
+public class UserService {
+ 
+    @Autowired
+    private UserRepository userRepository;
+ 
+    public List<User> getUsers() {
+        return userRepository.findAll();
+    }
+ 
+    // createUser, updateUser, deleteUser 등의 메서드 생략
+}

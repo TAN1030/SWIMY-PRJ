@@ -1,0 +1,5 @@
+package com.cassan.swimy.sampler.service;
+
+public class UserService {
+
+}

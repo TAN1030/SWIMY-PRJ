@@ -1,0 +1,11 @@
+{
+    "posts": [
+      { "id": 1, "title": "json-server", "author": "olwooz" }
+    ],
+    "comments": [
+      { "id": 1, "body": "some comment7", "postId": 1 },
+      { "id": 2, "body": "some comment2", "postId": 2 },
+      { "id": 3, "body": "some comment3", "postId": 3 }
+    ],
+    "profile": { "name": "olwooz" }
+}

@@ -1,0 +1,14 @@
+package com.cassan.swimy.sampler.entity;
+
+import jakarta.persistence.Entity;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Getter
+@Setter
+@Entity(name="student")
+public class Student {
+
+}

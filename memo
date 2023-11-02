@@ -23,7 +23,6 @@
 
 # 2Day (2023-11-01)
 1. AWS EC2 생성하기
-
 - https://king-ja.tistory.com/99
 - https://bbeomgeun.tistory.com/73
 
@@ -55,7 +54,17 @@ mysql> select database();
  - 로그인 : mysql -u swimy -p swimyDB
 
 
+-----------------------------------------
 
+# 3Day 
+1. Spring Boot 띄워보기
+EC2 인스턴스에 Spring Boot 서버 띄우기
+배포 시스템 이런거 생략하고 진짜 단순하게 서버 띄우는 것만 확인해봅니다.
+
+가장 간단한 방법은 두가지가 있는데 1번으로 진행하겠습니다.
+
+jar 파일을 빌드하여 EC2 복사 후 실행
+EC2 에서 프로젝트 git clone 후 실행
 
 
 + 도커.. 
@@ -63,3 +72,8 @@ mysql> select database();
 + 배포 (젠킨스 사용)
  => https://velog.io/@hmyanghm/AWS-EC2%EC%97%90-Jenkins-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%B6%95
 + Mysql AWS 연동
+
+git add --all
+git commit -m "update memo"
+git push --set-upstream origin master
+

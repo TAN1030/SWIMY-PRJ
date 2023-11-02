@@ -1,0 +1,5 @@
+package com.cassan.swimy.sampler.entity;
+
+public class Student {
+
+}
