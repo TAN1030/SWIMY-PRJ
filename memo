@@ -56,7 +56,39 @@ mysql> select database();
 
 -----------------------------------------
 
-# 3Day 
+# 3Day (2023-11-02)
+1. Mysql / JPA 설정 (진행중)
+- gradle : https://hyunwook.dev/196
+- JPA/mybatice/SpringJPA 차이점 : https://suhwan.dev/2019/02/24/jpa-vs-hibernate-vs-spring-data-jpa/
+https://wikidocs.net/161165
+https://gyeomii.tistory.com/11
+https://blog.naver.com/PostView.nhn?blogId=ka28&logNo=222355010576
+
+2. JSON 모크서버 
+ - npm i -g json-server 
+ - https://velog.io/@olwooz/JavaScript-JSON-Server%EB%A1%9C-Mock-API-%EB%A7%8C%EB%93%A4%EA%B8%B0
+ - json-server --watch db.json --port 3001
+
+3. git 되돌리기 (hard)
+- git log
+- git reset --hard 3d3f1e0d7e4fdeb0ed5c3c37722847637330df43
+
+
+# 4Day (2023-11-03)
+1. JPA 테이블 생성불가 해결 
+ ->  application.properties 프로퍼티 속성변경 
+2. local8080 실행불가 해결
+ -> git 롤백이 후 리프래시/재빌드, 위 프로퍼티 파일 재수정
+ -> spring.jpa.hibernate.ddl-auto=create 옵션이 최초실행이 아닐때 문제가되는듯 (none은 성공)
+ -> Question 테이블 생성 문제 재확인필요
+3. JPA user 테이블 insert 테스트
+ - https://kim-oriental.tistory.com/20#google_vignette
+
+파라미터 바인딩 설정 필요 : https://zzang9ha.tistory.com/399
+
+
+
+-------------------------------------------
 1. Spring Boot 띄워보기
 EC2 인스턴스에 Spring Boot 서버 띄우기
 배포 시스템 이런거 생략하고 진짜 단순하게 서버 띄우는 것만 확인해봅니다.

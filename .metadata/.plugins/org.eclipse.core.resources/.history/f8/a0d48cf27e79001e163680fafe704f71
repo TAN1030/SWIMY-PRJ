@@ -1,0 +1,65 @@
+package com.cassan.swimy.sampler.entity;
+
+import java.time.LocalDateTime;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
+
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.EnumType;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
+
+@Data
+@Getter
+@Setter
+@Entity(name="tb_user")
+public class User {
+	
+	 @Id
+	  @GeneratedValue(strategy = GenerationType.IDENTITY)
+	  protected long id;
+
+	  /** 사용자ID */
+	  @Column(nullable = false, length = 45)
+	  private String userId;
+
+	   /** 사용자명 */
+	  @Column(nullable = false, length = 100)
+	  private String name;
+
+	  /** 사용자비밀번호 */
+	  @Column(nullable = false, length = 100)
+	  private String password;
+
+	  /** 이메일 */
+	  @Column(length = 45)
+	  private String email;
+
+	  /** 연락처 */
+	  @Column(length = 20)
+	  private String tel;
+
+	  /** 생성일시 */
+	  @CreationTimestamp
+	  private LocalDateTime createDate;
+
+	  /** 수정일시 */
+	  @UpdateTimestamp
+	  private LocalDateTime updateDate;
+
+	  /** 권한 */
+	  @Enumerated(EnumType.STRING)
+	  @Column(nullable = false)
+	  private UserRole role;
+
+	  public enum UserRole {
+	    ADMIN, GUEST
+	  }
+}

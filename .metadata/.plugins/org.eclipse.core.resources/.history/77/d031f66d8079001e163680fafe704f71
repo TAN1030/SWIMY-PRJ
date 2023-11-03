@@ -1,0 +1,32 @@
+package com.cassan.swimy.sampler.repository;
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
+
+import com.cassan.swimy.sampler.entity.User;
+
+/*
+ * JPA에서 DB에 대한 CRUD(Create, Read, Update, Delete)를 수행하려면 
+ * 인터페이스 JpaRepository<EntityClass, PK타입> 를 상속받는 Repository 인터페이스를 생성해야한다.
+ */
+public interface UserRepository extends JpaRepository<User, Long>{
+
+	
+	@Query(value = "SELECT u FROM User u WHERE u.role = 'GUEST'")
+	List<User> findByRole();
+
+	@Query("SELECT u FROM User u WHERE u.userId = :userId")
+	User findByUserId(@Param("userId") String userId);
+
+	@Query("SELECT u FROM User u WHERE u.userId = :userId and u.password = :password")
+	User findByUserIdAndPassword(@Param("userId") String userId, @Param("password") String password);
+
+	@Query("SELECT u FROM User u WHERE u.userId = ?1")
+	User findByUserId(String userId);
+
+	@Query("SELECT u FROM User u WHERE u.userId = ?1 and u.password = ?2")
+	User findByUserIdAndPassword(String userId, String password);
+}
