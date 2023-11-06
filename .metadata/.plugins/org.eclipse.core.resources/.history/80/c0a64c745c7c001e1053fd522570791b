@@ -31,8 +31,7 @@
 # (specifically automatic registration).
 #org.postgresql.Driver
 #org.h2.Driver
-# Loading class `com.mysql.jdbc.Driver'. This is deprecated. The new driver class is `com.mysql.cj.jdbc.Driver'. The driver is automatically registered via the SPI and manual loading of the driver class is generally unnecessary.
-driverlist=com.mysql.cj.jdbc.Driver
+driverlist=com.mysql.jdbc.Driver
 
 # for flushing per statement
 # (default is false)
@@ -79,11 +78,8 @@ appender=com.p6spy.engine.spy.appender.Slf4JLogger
 append=true
 
 # class to use for formatting log messages (default is: com.p6spy.engine.spy.appender.SingleLineFormat)
-#logMessageFormat=com.jeeconf.hibernate.basics.sqlformatter.SimpleFormatter
+logMessageFormat=com.jeeconf.hibernate.basics.sqlformatter.SimpleFormatter
 #logMessageFormat=com.p6spy.engine.spy.appender.SingleLineFormat
-logMessageFormat=com.p6spy.engine.spy.appender.CustomLineFormat
-#customLogMessageFormat=| %(executionTime) ms | %(sql)
-customLogMessageFormat=| %(executionTime) ms | %(sql)
 
 # format that is used for logging of the date/time/... (has to be compatible with java.text.SimpleDateFormat)
 # (default is dd-MMM-yy)
