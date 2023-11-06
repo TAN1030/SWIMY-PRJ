@@ -1,20 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <section name="Workbench">
 	<section name="org.eclipse.ui.texteditor.FindReplaceDialog">
-		<item key="selection" value="jpa"/>
+		<item key="selection" value="datasource"/>
 		<item key="wrap" value="true"/>
 		<item key="casesensitive" value="false"/>
 		<item key="wholeword" value="false"/>
 		<item key="incremental" value="false"/>
 		<item key="isRegEx" value="false"/>
 		<list key="findhistory">
+			<item value="datasource"/>
+			<item value="postgresql"/>
+			<item value="com.mysql.jdbc.Driver"/>
+			<item value="com.p6spy.engine.spy.P6SpyDriver"/>
+			<item value="customLogMessageFormat"/>
+			<item value="logMessageFormat"/>
+			<item value="appender"/>
+			<item value="mysql"/>
+			<item value="driver"/>
+			<item value="implementation"/>
 			<item value="jpa"/>
 			<item value="org.springframework.boot:spring-boot-starter-data-jpa"/>
 			<item value="JpaPjtApplicationTests"/>
 			<item value="insertTestData"/>
 			<item value="user;"/>
-			<item value="userService"/>
-			<item value="Users"/>
 		</list>
 		<list key="replacehistory">
 			<item value="User"/>

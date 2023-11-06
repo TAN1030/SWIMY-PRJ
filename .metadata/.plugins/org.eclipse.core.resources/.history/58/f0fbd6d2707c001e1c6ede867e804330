@@ -1,0 +1,11 @@
+package com.cassan.swimy;
+
+import org.junit.jupiter.api.Test;
+
+class SwimyApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}

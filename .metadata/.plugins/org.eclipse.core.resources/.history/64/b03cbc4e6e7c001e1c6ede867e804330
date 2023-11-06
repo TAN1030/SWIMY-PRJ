@@ -1,0 +1,5 @@
+package com.cassan.swimy.sampler.repository;
+
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
+
+}

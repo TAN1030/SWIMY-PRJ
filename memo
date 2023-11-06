@@ -3,9 +3,9 @@
         SWIMY
 init :2023-10-31
 -----------------------
-Spring 3.1 / gradle-kotlin / JPA / Lombok
+Spring 3.1 / gradle-kotlin / JPA+P6spy / Lombok /
 EC2 / Mysql / 
-
+React
 ========================
 
 
@@ -97,15 +97,19 @@ https://blog.naver.com/PostView.nhn?blogId=ka28&logNo=222355010576
 
 
 # 5Day (2023-11-06)
-1. 파라미터 출력 설정 필요 p6spy : https://zzang9ha.tistory.com/399
+1. 파라미터 출력설정 p6spy
  - https://shanepark.tistory.com/415
 2. JPA 자세히 알아보기
+2.1. 엔티티 : 엔티티는 데이터베이스 테이블과 매핑되는 자바 클래스 (모델 또는 도메인 모델)
+
+
+
 
 
 + gradle 은 jar 를 로컬에 저장하지 않는다?
  - https://kkambi.tistory.com/122
  - maven .m2 폴더처럼 따로 저장 경로 있음 : C:\Users\rbfl\.gradle\caches
- 
+	
 
 -------------------------------------------
 1. Spring Boot 띄워보기
@@ -124,7 +128,18 @@ EC2 에서 프로젝트 git clone 후 실행
  => https://velog.io/@hmyanghm/AWS-EC2%EC%97%90-Jenkins-%EC%84%9C%EB%B2%84-%EA%B5%AC%EC%B6%95
 + Mysql AWS 연동
 
+
+
+# git 명령어 ---------------------------
 git add --all
 git commit -m "update memo"
 git push --set-upstream origin master
 
+git commit --amend : 커밋메세지 수정 => https://velog.io/@mayinjanuary/git-%EC%BB%A4%EB%B0%8B-%EB%A9%94%EC%84%B8%EC%A7%80-%EC%88%98%EC%A0%95%ED%95%98%EA%B8%B0-changing-commit-message
+
+3. git 되돌리기 (hard)
+- git log
+- git reset --hard 00418bdbc8d11637bd0cebe7dcc9112acaf95c26
+
+4. jar 압축 
+https://coding-house.tistory.com/69

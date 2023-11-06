@@ -17,10 +17,12 @@ public class TestController {
 	@RequestMapping(value = "/test/hello")
 	@ResponseBody
 	public String hello(Model model) {
-		
 		this.insertTestData();
+		
 		return "Hello React (COR Procxy2)";
 	}
+	
+	
 	@Autowired
 	UserRepository userRepository;
 
