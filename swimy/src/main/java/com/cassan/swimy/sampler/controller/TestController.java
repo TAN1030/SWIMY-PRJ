@@ -26,7 +26,7 @@ public class TestController {
 
 	void insertTestData() {
 		User user = new User();
-		user.setName("kim ori");
+		user.setName("kim ori2");
 		userRepository.save(user);
 		
 		user = new User();

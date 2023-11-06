@@ -1,4 +1,15 @@
 
+========================
+        SWIMY
+init :2023-10-31
+-----------------------
+Spring 3.1 / gradle-kotlin / JPA / Lombok
+EC2 / Mysql / 
+
+========================
+
+
+
 # 1Day (2023-10-31)
 
 1. JDK 17, 이클립스 (spring 4.0 sett)
@@ -84,7 +95,10 @@ https://blog.naver.com/PostView.nhn?blogId=ka28&logNo=222355010576
 3. JPA user 테이블 insert 테스트
  - https://kim-oriental.tistory.com/20#google_vignette
 
-파라미터 바인딩 설정 필요 : https://zzang9ha.tistory.com/399
+
+# 5Day (2023-11-06)
+1. 파라미터 바인딩 설정 필요 : https://zzang9ha.tistory.com/399
+2. JPA 자세히 알아보기
 
 
 
