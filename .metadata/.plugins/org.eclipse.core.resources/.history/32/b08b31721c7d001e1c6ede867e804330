@@ -1,0 +1,123 @@
+package com.cassan.swimy;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cassan.swimy.sampler.entity.Question;
+import com.cassan.swimy.sampler.repository.QuestionRepository;
+
+@SpringBootTest /* 스프링부트 테스트 클래스임을 명시 */
+class SwimyApplicationTests {
+
+	@Autowired
+	private QuestionRepository questionRepository;
+ 
+	/**
+	 * Method name : getLocalDate
+	 * Date - 작성자 : 2023. 11. 7. - kkr
+	 * Content : 현재날짜 반환
+	 */
+	String getLocalDate() {
+		return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS"));
+	}
+	/**
+	 * Method name : getRandomString 
+	 * Date - 작성자 : 2023. 11. 7. - kkr
+	 * Content : 랜덤문자열 반환 
+	 */
+	String getRandomString() {
+		//유니코드상 한글은 11172 ("U+AC00:가" ~ "U+D7A3:힣")
+		//유니코드상 대문자는 26개 + 10진수아스키시작번호 65
+		//유니코드상 소문자는 26개 + 10진수아스키시작번호 97
+		String result="";
+	    for (int i = 1; i <= 10; i++) {
+	    	result += "" + (char) ((Math.random() * 11172) + 0xAC00);
+	    }
+	    result += (char) Math.floor(Math.random() * 100)
+	    		 + (char) ((Math.random() * 26) + 65)
+		 		 + (char) ((Math.random() * 26) + 97);
+		return result;
+	}
+ 
+	@Test /* 테스트 메서드임을 명시. 이 클래스를 JUnit으로 실행하면 @Test 애너테이션이 붙은 메서드가 실행 */
+	void testJpa_init() {
+		Question q1 = new Question();
+		q1.setSubject("제목 : " + getLocalDateYYYYMMDD());
+		q1.setContent("내용입니다."+getLocalDate());
+		q1.setCreateDate(LocalDateTime.now()); 
+		this.questionRepository.save(q1); // 첫번째 질문 저장
+
+		Question q2 = new Question();
+		q2.setSubject("제목 : " + getRandomString());
+		q2.setContent("내용입니다?");
+		q2.setCreateDate(LocalDateTime.now());
+		this.questionRepository.save(q2); // 두번째 질문 저장
+	}
+
+	/**
+	 * Method name : testJpa_findAll
+	 * DATE : 2023. 11. 6.
+	 * 작성자 : kkr
+	 * 내용 : findAll 테스트. assertEquals(10, all.size()); 부분은 매번 바뀌므로 바꿔줘야함
+	 */
+	/*
+	 * @Test void testJpa_findAll() { List<Question> all =
+	 * this.questionRepository.findAll(); // 전체조회 assertEquals(10, all.size());
+	 * 
+	 * Question q = all.get(0); // 첫번째 데이터가 일치하는지를 확인 assertEquals("sbb가 무엇인가요?",
+	 * q.getSubject()); }
+	 */
+	
+	/**
+	 * Method name : testJpa_EntityIdSearch
+	 * DATE : 2023. 11. 6.
+	 * 작성자 : kkr
+	 * 내용 : Question 엔티티의 Id값으로 데이터를 조회
+	 */
+	@Test 
+	void testJpa_EntityIdSearching() { 
+		  // Optional : Optional은 null 처리를 유연하게 처리하기 위해 사용하는 클래스
+		  Optional<Question> oq = this.questionRepository.findById(1); 
+	        if(oq.isPresent()) {  // null 이 아니라면
+	            Question q = oq.get();
+	            assertEquals("sbb가 무엇인가요?", q.getSubject());
+	        }
+	}
+	
+	/**
+	 * Method name : testJpa_FindBySubject 
+	 * DATE : 2023. 11. 6.
+	 * 작성자 : kkr
+	 * 내용 : Question 엔티티의 subject 값으로 데이터를 조회
+	 */
+	/*
+	 * @Test void testJpa_FindBySubject() { Question q =
+	 * this.questionRepository.findBySubject("sbb가 무엇인가요?"); assertEquals(1,
+	 * q.getId()); }
+	 */
+	/**
+	 * Method name : testJpa_FindBySubjectAndContent 
+	 * DATE : 2023. 11. 6.
+	 * 작성자 : kkr
+	 * 내용 : 제목과 내용을 함께 조회 (AND)
+	 */
+	/*
+	 * @Test void testJpa_FindBySubjectAndContent() { Question q =
+	 * this.questionRepository.findBySubjectAndContent( "sbb가 무엇인가요?",
+	 * "sbb에 대해서 알고 싶습니다."); assertEquals(1, q.getId()); }
+	 */
+	//--------------------------------------------------------
+	/*
+	 * @Test void testJqa_FindById() { Question q =
+	 * this.questionRepository.findById("10"); q.getContent(); }
+	 */
+	
+}

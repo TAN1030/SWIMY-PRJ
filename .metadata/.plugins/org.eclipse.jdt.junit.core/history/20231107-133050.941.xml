@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="SwimyApplicationTests" project="swimy" tests="2" started="2" failures="0" errors="0" ignored="0">
+  <testsuite name="com.cassan.swimy.SwimyApplicationTests" time="4.78" displayname="SwimyApplicationTests" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.SwimyApplicationTests]">
+    <testcase name="testJqa_FindById" classname="com.cassan.swimy.SwimyApplicationTests" time="4.604" displayname="testJqa_FindById()" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.SwimyApplicationTests]/[method:testJqa_FindById()]"/>
+    <testcase name="testJpa_init" classname="com.cassan.swimy.SwimyApplicationTests" time="0.173" displayname="testJpa_init()" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.SwimyApplicationTests]/[method:testJpa_init()]"/>
+  </testsuite>
+</testrun>

@@ -1,0 +1,64 @@
+package com.cassan.swimy;
+
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
+
+import java.util.Set;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.runner.RunWith;
+
+import junitparams.JUnitParamsRunner;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j /* lombok의 자동로그 생성을 사용. 인터페이스나 구현체를 생성할 필요가 없다 */
+@RunWith(JUnitParamsRunner.class)
+public class JunitTests {
+    
+	@ParameterizedTest
+    @ValueSource(ints = {20})
+    void insertDummyData(int number)   {
+		log.info("insertDummyData={}", number);
+
+    }
+	
+	@ParameterizedTest
+	@ValueSource(ints = {1, 3, 5, -3, 15, Integer.MAX_VALUE}) // six numbers
+	void isOdd_ShouldReturnTrueForOddNumbers(int number) {
+	    //assertTrue(Numbers.isOdd(number));
+		log.info("isOdd_ShouldReturnTrueForOddNumbers={}", number); 
+	}
+	
+	@ParameterizedTest
+	@ValueSource(strings = {"A", "B", "C"})
+	void containsABC(String value) {
+	    assertThat(Set.of("A", "B", "C")).contains(value);
+	}
+	
+	@ParameterizedTest
+	// @NullAndEmptySource 사용법찾아보기
+	@ValueSource(strings = {"\n", "\t", "     "})
+	void isBlank_CheckedNullAndEmpty(String input) {
+	    assertTrue(input.isBlank()); 
+	}
+	
+	
+	
+	
+	@Test
+    @Parameters
+    // (method = "parametersForTestFree") method 생략 가능
+    public void testFree(int basePrice, int maxPrice, boolean isFree){
+		log.info("testFree={}", basePrice, maxPrice, isFree); 
+    }
+
+    private Object[] parametersForTestFree(){
+        return new Object[]{
+                new Object[] {0, 0, true},
+                new Object[] {100, 0, false},
+                new Object[] {0, 100, false}
+        };
+    }
+}

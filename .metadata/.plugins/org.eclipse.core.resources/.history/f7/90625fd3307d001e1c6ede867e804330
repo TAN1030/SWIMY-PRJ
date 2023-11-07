@@ -1,0 +1,125 @@
+package com.cassan.swimy;
+
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Optional;
+
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.ValueSource;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+
+import com.cassan.swimy.sampler.entity.Question;
+import com.cassan.swimy.sampler.repository.QuestionRepository;
+
+import junitparams.JUnitParamsRunner;
+import junitparams.Parameters;
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@SpringBootTest /* 스프링부트 테스트 클래스임을 명시 */
+@RunWith(JUnitParamsRunner.class) 
+class SwimyApplicationTests {
+
+	@Autowired
+	private QuestionRepository questionRepository;
+
+	/**
+	 * Method name : getLocalDate Date - 작성자 : 2023. 11. 7. - kkr Content : 현재날짜 반환
+	 */
+	private String getLocalDate() {
+		return LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+	}
+
+	/**
+	 * Method name : getRandomString Date - 작성자 : 2023. 11. 7. - kkr Content : 랜덤문자열
+	 * 반환
+	 */
+	private String getRandomString() {
+		// 유니코드상 한글은 11172 ("U+AC00:가" ~ "U+D7A3:힣")
+		// 유니코드상 대문자는 26개 + 10진수아스키시작번호 65
+		// 유니코드상 소문자는 26개 + 10진수아스키시작번호 97
+		String result = "";
+		for (int i = 1; i <= 10; i++) {
+			result += "" + (char) ((Math.random() * 11172) + 0xAC00);
+		}
+		result += (char) Math.floor(Math.random() * 100) + (char) ((Math.random() * 26) + 65)
+				+ (char) ((Math.random() * 26) + 97);
+		return result;
+	}
+
+	/**
+	 * Method name : logTest Date - 작성자 : 2023. 11. 7. - kkr Content : 로그출력 테스트 -
+	 * log level = trace>debug>info>warn>error
+		- 현재 이 프로젝트는 logging.level.p6spy=debug 이므로 debug/info/warn/error 에 관한 로그만 남는다 -
+	 * log.trace("trace log=" + name); 처럼 쓰지않도록 주의 (불필요한 연산)
+	 * 만약 여러개의 변수를 출력하고 싶으면 log.info("{} {}", name1, name2) 
+	 */
+	private void logTest() {
+		String name = "NAME!";
+		log.trace("trace log={}", name);
+		log.debug("debug log={}", name);
+		log.info("info log={}", name);
+		log.warn("warn log={}", name);
+		log.error("error log={}", name);
+	}
+
+	// -------------------------------------------------------
+
+	@Test /* 테스트 메서드임을 명시. 이 클래스를 JUnit으로 실행하면 @Test 애너테이션이 붙은 메서드가 실행 */
+	void testJpa_init() {
+		
+		Question q1 = new Question();
+		q1.setSubject(getRandomString());
+		q1.setContent("내용 >> " + getLocalDate());
+		q1.setCreateDate(LocalDateTime.now());
+		this.questionRepository.save(q1); // 첫번째 질문 저장
+	}
+
+	
+	@Test void testJqa_FindById() { 
+		int id = 31;
+		Optional<Question> q = this.questionRepository.findById(id); // Optional은 메소드의 결과가 null이 될 수 있으며, null에 의해 오류가 발생할 가능성이 매우 높을 때 반환값으로만 사용  => 리스트 타입에만 적용하도록
+		 if(q.isPresent()) {
+			log.info("debug log={}", q);
+			log.info("debug log={}", q.get());
+			log.info("debug log={}", q.get().getSubject());
+		 }
+		
+	}
+	
+	@Test 
+	@ParameterizedTest
+	//@ValueSource(ints = {31, 32})
+	@Parameters(method = "parametersForTestJqa_FindById")
+	private void testJqa_FindById(int id, boolean isFree) { 
+		id = 31;
+		Optional<Question> q = this.questionRepository.findById(id); // Optional은 메소드의 결과가 null이 될 수 있으며, null에 의해 오류가 발생할 가능성이 매우 높을 때 반환값으로만 사용  => 리스트 타입에만 적용하도록
+		if(q.isPresent()) {
+			log.info("debug log={}", q.get());
+		}
+	}
+	
+	private Object[] parametersForTestJqa_FindById(){
+        return new Object[]{
+                new Object[] {31,  true},
+                new Object[] {100,   false},
+                new Object[] {32, false}
+        };
+    }
+	
+	@Test 
+	@ParameterizedTest
+	@ValueSource(ints = {31, 32})
+	Question testJqa_FindById2(int id) { 
+		id = 99;
+		Optional<Question> q = this.questionRepository.findById(id); // Optional은 메소드의 결과가 null이 될 수 있으며, null에 의해 오류가 발생할 가능성이 매우 높을 때 반환값으로만 사용  => 리스트 타입에만 적용하도록
+		if(q.isPresent()) {
+			log.info("debug log={}", q.get());
+			return q.get();
+		}
+		return q.get();
+	}
+}

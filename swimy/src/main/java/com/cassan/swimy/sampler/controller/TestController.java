@@ -17,7 +17,7 @@ public class TestController {
 	@RequestMapping(value = "/test/hello")
 	@ResponseBody
 	public String hello(Model model) {
-		this.insertTestData();
+		//this.insertTestData();
 		
 		return "Hello React (COR Procxy2)";
 	}

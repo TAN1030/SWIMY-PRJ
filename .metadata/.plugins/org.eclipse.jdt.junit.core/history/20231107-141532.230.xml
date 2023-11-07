@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?><testrun name="JunitTests" project="swimy" tests="5" started="5" failures="0" errors="0" ignored="0">
+  <testsuite name="com.cassan.swimy.JunitTests" incomplete="true" displayname="JunitTests" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]">
+    <testsuite name="containsABC(com.cassan.swimy.JunitTests)" time="0.072" displayname="containsABC(String)" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:containsABC(java.lang.String)]">
+      <testcase name="containsABC" classname="com.cassan.swimy.JunitTests" time="0.072" dynamicTest="true" displayname="[1] A" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:containsABC(java.lang.String)]/[test-template-invocation:#1]"/>
+      <testcase name="containsABC" classname="com.cassan.swimy.JunitTests" time="0.002" dynamicTest="true" displayname="[2] B" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:containsABC(java.lang.String)]/[test-template-invocation:#2]"/>
+      <testcase name="containsABC" classname="com.cassan.swimy.JunitTests" time="0.002" dynamicTest="true" displayname="[3] C" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:containsABC(java.lang.String)]/[test-template-invocation:#3]"/>
+    </testsuite>
+    <testsuite name="insertDummyData(com.cassan.swimy.JunitTests)" time="0.023" displayname="insertDummyData(int)" parameters="int" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:insertDummyData(int)]">
+      <testcase name="insertDummyData" classname="com.cassan.swimy.JunitTests" time="0.023" dynamicTest="true" displayname="[1] 20" parameters="int" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:insertDummyData(int)]/[test-template-invocation:#1]"/>
+    </testsuite>
+    <testsuite name="isBlank_CheckedNullAndEmpty(com.cassan.swimy.JunitTests)" incomplete="true" displayname="isBlank_CheckedNullAndEmpty(String)" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isBlank_CheckedNullAndEmpty(java.lang.String)]">
+      <testcase name="isBlank_CheckedNullAndEmpty" classname="com.cassan.swimy.JunitTests" incomplete="true" dynamicTest="true" displayname="[1] null" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isBlank_CheckedNullAndEmpty(java.lang.String)]/[test-template-invocation:#1]"/>
+    </testsuite>
+    <testsuite name="isOdd_ShouldReturnTrueForOddNumbers(com.cassan.swimy.JunitTests)" incomplete="true" displayname="isOdd_ShouldReturnTrueForOddNumbers(int)" parameters="int" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isOdd_ShouldReturnTrueForOddNumbers(int)]"/>
+  </testsuite>
+</testrun>

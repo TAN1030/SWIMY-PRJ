@@ -1,2 +1,2 @@
 eclipse.preferences.version=1
-prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions/>\r\n
+prefWatchExpressions=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?>\r\n<watchExpressions>\r\n    <expression enabled\="true" text\="q.isPresent()"/>\r\n    <expression enabled\="true" text\="q"/>\r\n    <expression enabled\="true" text\="input"/>\r\n    <expression enabled\="true" text\="input.isBlank()"/>\r\n    <expression enabled\="true" text\="input.isEmpty()"/>\r\n    <expression enabled\="true" text\="&quot;&quot;.equals(input)"/>\r\n    <expression enabled\="true" text\="null.equals(input)"/>\r\n</watchExpressions>\r\n

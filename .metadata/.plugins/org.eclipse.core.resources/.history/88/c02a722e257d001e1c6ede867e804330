@@ -1,0 +1,44 @@
+server.servlet.encoding.charset=UTF-8  
+server.servlet.encoding.enabled=true  
+server.servlet.encoding.force=true  
+
+### MySQL (p6spy) ###
+spring.datasource.driver-class-name=com.p6spy.engine.spy.P6SpyDriver
+spring.datasource.url=jdbc:p6spy:mysql://13.209.21.11:3306/swimyDB
+spring.datasource.username=swimy
+spring.datasource.password=swimy4_Master
+
+### Spring jpa ###
+# Hibernate 는 내부적으로 지정되는 DB에 맞게 SQL 문을 생성하는 Dialect 가 존재. 
+# 이 Dialect 는 Hibernate가 다양한 데이터 베이스를 처리하기 위해 각 데이터 베이스에 맞는 SQL 문법을 처리하기 위해 존재.
+# MySQL5Dialect, MySQL5InnoDBDialect, Oracle10gDialect, OracleDialect 등.. 
+#spring.jpa.database-platform=org.hibernate.dialect.MySQL5Dialect 
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+spring.jpa.hibernate.ddl-auto=update
+#spring.jpa.properties.hibernate.show_sql=true #spy 사용을 위해 주석
+#spring.jpa.properties.hibernate.format_sql=true
+#spring.jpa.properties.hibernate.highlight_sql=true
+#spring.jpa.properties.hibernate.use_sql_comments=true
+
+## show sql data binding (운영시 info로 변경)
+logging.level.p6spy=info
+logging.level.groupId.artifactId=debug
+# log color 설정 
+spring.output.ansi.enabled=always
+#logging.level.org.hibernate.SQL=debug
+#logging.level.org.hibernate.type.descriptor.sql=trace
+#logging.level.org.hibernate.type.descriptor.sql.BasicBinder=TRACE
+ 
+# p6spy 를 위한 설정
+decorator.datasource.p6spy.enable-logging: true
+#decorator.datasource.enable: true
+
+# ddl-auto 옵션의 종류 : create / create-drop / validate / update / none
+# - create : 테이블이 없을 경우 테이블 생성하는 옵션(이 때 DB 가 전부 날아가기 때문에, create로 해놓으면 실행시마다 DB 가 날아간다. )
+# - create-drop : 테스트 환경에 적합한 옵션. 테스트 실행 시 mock data를 위해 table을 생성하고 테스트 종료 후 테이블을 삭제시킨다. 
+# - validate : application 실행 시  @Entity들과 이미 존재하는 테이블(schema)가 정상적으로 맵핑되었는지 판단하여 만약 @Entity 와 테이블이 제대로 맵핑되지 않으면 application이 실행되지 않는다. 
+# - update : 이미 테이블이 존재하는 상황에서 @Entity에 속성이 추가될 경우, 기존의 테이블의 데이터에는 변화 없이 새로운 컬럼을 추가해준다. 
+# - none : 아무 작업도 하지 않는다. 
+# 하이버네이트가 자동으로 생성해주는 DDL은 신뢰성이 떨어지기 때문에 
+# 절대로! 운영DB 환경에서 그대로 사용하면 안되고, 직접 DDL을 작성하는 것을 권장
+ 

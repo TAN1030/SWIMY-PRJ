@@ -1,0 +1,126 @@
+/* plugins : 재사용가능한 빌드 로직을 패키지화하여 task 로 제공. 현재는 java-spingboot 셋팅만 */
+plugins {
+	id 'java'
+	id 'org.springframework.boot' version '3.1.5'
+	id 'io.spring.dependency-management' version '1.1.3'
+}
+
+/* Option Group : 아키타입/버전/컴파일 java 버전 명시 */
+group = 'com.cassan'
+version = '0.0.1-SNAPSHOT'
+java {
+	sourceCompatibility = '17'
+}
+
+configurations {
+	compileOnly {
+		extendsFrom annotationProcessor
+	}
+}
+
+/* repositories : 프로젝트에 필요한 의존성 다운 */ 
+repositories {
+	mavenCentral() // 메이븐저장소
+	//사설저장소 셋팅가능
+}
+
+/* dependencies : 프로젝트의 의존성 파일을 표기 */
+/* 1) 구성요소가 라이브러리를 컴파일/실행할 때 사용
+	 - apiElements (Complie)
+	 - runtimeElements (Runtime)
+   2) 구성요소 자체사용을 위해 구성요소 내부에서 사용
+	 - complieClassPath : 컴파일시 사용할 classPath 
+	 - runtileClassPath : 실행시 사용할 classPath
+   3) 사용자가 의존성을 선언할 때 사용 (라이브러리마다 필요한 시점이 다르기 때문에 거기에 맞게 사용해야함)
+	 - api : 컴파일 타임에 필요한 라이브러리. 의존 라이브러리가 수정되는 경우 본 모듈을 의존하는 모든 모듈들을 재빌드
+	  ㄴ A < B < C 일때, A가 수정되면 B,C도 함께 빌드
+	 - implementation : 내부적으로만 사용되고 사용자에게는 의존성을 노출시키지 않게 선언 (런타임 시점에 노출) 의존 라이브러리를 수정해도 본 모듈까지만 재빌드
+	  ㄴ A < B < C 일때, A가 수정되면 B가 함께 빌드
+	 - compileOnly : 컴파일 시점에 꼭 필요한 라이브러리. 컴파일 시에만 빌드하고 빌드 결과물에는 포함하지 않음. EX) lombok
+	 - runtimeOnly : 컴파일 시점에는 필요 없지만 런타임 시점에 필요한 라이브러리 Ex)  Logging, DB관련 라이브러리
+	 - annotationProcessor
+   4) 기타
+     - compile project(':sub') 처럼 외부 프로젝트의 의존성을 가져올 수 있으며 
+     - runtime files('common.jar', 'system.jar') jar의 의존성을 추가해줄 수도 있다
+*/
+dependencies {
+	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
+	implementation 'org.springframework.boot:spring-boot-starter-web'
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	
+	
+	compileOnly 'org.projectlombok:lombok'
+	annotationProcessor 'org.projectlombok:lombok'
+
+  	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+	implementation 'com.mysql:mysql-connector-j:8.0.33'
+	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7' /* p6spy 참조추가 (쿼리 파라미터 로깅)  */
+	/* implementation 'pl.pragmatists:JUnitParams:1.1.1' */ /* junit 파라미터 테스트 */
+
+
+	testImplementation(platform('org.junit:junit-bom:5.10.1'))
+	testImplementation('org.junit.jupiter:junit-jupiter')
+	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+	
+	
+
+}
+
+
+/* React 연동 S ------------ */
+def webappDir = "$projectDir/src/main/swimy-front"
+
+/* sourceSets : 프로젝트의 트리구조를 설정. gradle 로 생성했으니 gradle 기본값으로 설정되어있음 */ 
+sourceSets {
+	main {
+		resources {
+			/* 이 프로젝트에서는 React build 장소를 명시해줬음 */
+			srcDirs = ["$webappDir/build", 
+			  		   "$projectDir/src/main/resources"]
+		}
+	}
+}
+
+processResources {
+	dependsOn "buildReact"
+}
+
+task buildReact(type: Exec) {
+	dependsOn "installReact"
+	workingDir "$webappDir"
+	inputs.dir "$webappDir"
+	group = BasePlugin.BUILD_GROUP
+		if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+			commandLine "npm.cmd", "run-script", "build"
+		} else {
+			commandLine "npm", "run-script", "build"
+		}
+}
+
+task installReact(type: Exec) {
+	workingDir "$webappDir"
+	inputs.dir "$webappDir"
+	group = BasePlugin.BUILD_GROUP
+	if (System.getProperty('os.name').toLowerCase(Locale.ROOT).contains('windows')) {
+		commandLine "npm.cmd", "audit", "fix"
+		commandLine 'npm.cmd', 'install'
+	} else {
+		commandLine "npm", "audit", "fix"
+		commandLine 'npm', 'install'
+	}
+}
+/* React 연동 E ------------ */
+tasks {
+  processResources {
+              duplicatesStrategy = org.gradle.api.file.DuplicatesStrategy.INCLUDE
+  }
+}
+ 
+
+
+test {
+	useJUnitPlatform()
+	testLogging {
+		events "passed", "skipped", "failed"
+	}
+}
