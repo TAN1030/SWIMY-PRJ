@@ -5,6 +5,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Set;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
@@ -31,6 +32,7 @@ public class JunitTests {
 	 * log.trace("trace log=" + name); 처럼 쓰지않도록 주의 (불필요한 연산)
 	 * 만약 여러개의 변수를 출력하고 싶으면 log.info("{} {}", name1, name2) 
 	 */
+	
 	private void logTest() {
 		String name = "NAME!";
 		log.trace("trace log={}", name);
@@ -40,6 +42,7 @@ public class JunitTests {
 		log.error("error log={}", name);
 	}
 	
+	@DisplayName("@DisplayName")
 	@ParameterizedTest
     @ValueSource(ints = {20})
     void isEven(int number)   {

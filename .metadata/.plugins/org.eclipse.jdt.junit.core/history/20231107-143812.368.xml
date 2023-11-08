@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="JunitTests.isOdd(int)" project="swimy" tests="1" started="1" failures="0" errors="0" ignored="0">
-  <testsuite name="com.cassan.swimy.JunitTests" time="0.07" displayname="JunitTests" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]">
-    <testsuite name="isOdd(com.cassan.swimy.JunitTests)" time="0.07" displayname="isOdd(int)" parameters="int" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isOdd(int)]">
-      <testcase name="isOdd" classname="com.cassan.swimy.JunitTests" time="0.07" dynamicTest="true" displayname="[1] 20" parameters="int" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isOdd(int)]/[test-template-invocation:#1]"/>
-    </testsuite>
-  </testsuite>
-</testrun>

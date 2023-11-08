@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?><testrun name="JunitTests.isBlank(String)" project="swimy" tests="3" started="3" failures="0" errors="0" ignored="0">
-  <testsuite name="com.cassan.swimy.JunitTests" time="0.061" displayname="JunitTests" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]">
-    <testsuite name="isBlank(com.cassan.swimy.JunitTests)" time="0.061" displayname="isBlank(String)" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isBlank(java.lang.String)]">
-      <testcase name="isBlank" classname="com.cassan.swimy.JunitTests" time="0.061" dynamicTest="true" displayname="[1]" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isBlank(java.lang.String)]/[test-template-invocation:#1]"/>
-      <testcase name="isBlank" classname="com.cassan.swimy.JunitTests" time="0.001" dynamicTest="true" displayname="[2]" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isBlank(java.lang.String)]/[test-template-invocation:#2]"/>
-      <testcase name="isBlank" classname="com.cassan.swimy.JunitTests" time="0.001" dynamicTest="true" displayname="[3]" parameters="java.lang.String" uniqueid="[engine:junit-jupiter]/[class:com.cassan.swimy.JunitTests]/[test-template:isBlank(java.lang.String)]/[test-template-invocation:#3]"/>
-    </testsuite>
-  </testsuite>
-</testrun>

@@ -1,0 +1,96 @@
+package com.cassan.swimy.sampler.repository;
+
+import java.time.LocalDateTime;
+import java.util.Optional;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.cassan.swimy.sampler.entity.Question;
+
+/*
+ * Repository 는 엔티티들과 데이터베이스를 연결시켜주는 인터페이스 역할. CRUD를 정의
+ *  - 모든 레포지터리는 JpaRepository 인터페이스를 상속받으며
+ *  - 이때 제네릭으로 대상이 되는 엔티티의 타입(Question)과 해당 엔티티의 PK의 속성 타입(Integer)을 지정해야만 한다
+ *  - 레포지터리에 정의되는 메서드들은 예약메서드로, 메서드 내부를 구현할 필요가 없다.
+ *  - 예약메서드의 형식은 findBy~컬렴명1 컬럼명2 
+ * 
+ * DOC : https://docs.spring.io/spring-data/jpa/docs/current/reference/html/#jpa.query-methods.query-creation
+ */
+public interface QuestionRepository extends JpaRepository<Question, Integer> {
+
+	Question findBySubject(String subject); // findBy + 엔티티의 속성명 으로 자동으로 검색되므로, 메서드 내부를 구현할 필요가 없다
+	Question findBySubjectAndContent(String subject, String content); // AND
+	Question findBySubjectOrContent(String subject, String content); // OR
+	
+	// Is, Equals
+	// … where x.firstname = ?1
+	Optional<Question> findById(Integer id);  
+	Question findByIdIs(Integer id); 
+	Question findByIdEquals(Integer id); 
+
+	// And, Or 
+	// … where x.lastname = ?1 and/or x.firstname = ?2
+	Optional<?> findByIdAndSubject(Integer id, String Subject); 
+	Optional<?> findByIdOrSubject(Integer id, String Subject); 
+	
+	// Between, After, Before
+	// … where x.startDate between ?1 and ?2
+	// … where x.startDate > ?1
+	// … where x.startDate < ?1
+	Optional<?> findByCreateDateBetween(LocalDateTime createDate);
+	Optional<?> findByCreateDateAfter(LocalDateTime createDate);
+	Optional<?> findByCreateDateBefore(LocalDateTime createDate);
+	
+	//IsNull, Null  /IsNotNull, NotNull
+	// … where x.age is null
+	// … where x.age not null
+	findByContent(Is)Null
+	findByAge(Is)NotNull
+	
+	// Like, NotLike
+	// … where x.firstname like ?1
+	// … where x.firstname not like ?1… where x.firstname not like ?1
+	findByFirstnameLike
+	findByFirstnameNotLike
+	
+	
+	// LessThan, LessThanEqual
+	// … where x.age < ?1
+	// … where x.age <= ?1
+	findByAgeLessThan
+	findByAgeLessThanEqual
+	
+	// GreaterThan, GreaterThanEqual
+	// … where x.age > ?1
+	// … where x.age >= ?1
+	findByAgeGreaterThan
+	findByAgeGreaterThanEqual
+	
+	// Containing, StartingWith, EndingWith
+	// … where x.firstname like ?1 (parameter bound wrapped in %) %파람%
+	// … where x.firstname like ?1 (parameter bound with appended %) 파람%
+	// … where x.firstname like ?1 (parameter bound with prepended %) => %파람
+	findByFirstnameContaining
+	findByFirstnameStartingWith
+	findByFirstnameEndingWith
+
+	// OrderBy
+	// … where x.age = ?1 order by x.lastname desc
+	findByAgeOrderByLastnameDesc
+	
+	// Not, In, NotIn
+	// … where x.lastname <> ?1
+	// … where x.age in ?1
+	// … where x.age not in ?1
+	findByLastnameNot
+	findByAgeIn(Collection<Age> ages)
+	findByAgeNotIn(Collection<Age> ages)
+
+	// True, False
+	// … where x.active = true
+	// … where x.active = false
+	findByActiveTrue()
+	findByActiveFalse()
+	
+	
+}

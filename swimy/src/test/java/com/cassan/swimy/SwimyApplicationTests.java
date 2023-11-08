@@ -1,13 +1,17 @@
 package com.cassan.swimy;
 
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
 import java.util.Optional;
 
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,19 +43,13 @@ class SwimyApplicationTests {
 	/**
 	 * Method name : getRandomString 
 	 * Date - 작성자 : 2023. 11. 7. - kkr 
-	 * Content : 랜덤문자열
-	 * 반환
+	 * Content : 랜덤문자열 반환
 	 */
 	private String getRandomString() {
-		// 유니코드상 한글은 11172 ("U+AC00:가" ~ "U+D7A3:힣")
-		// 유니코드상 대문자는 26개 + 10진수아스키시작번호 65
-		// 유니코드상 소문자는 26개 + 10진수아스키시작번호 97
+		// 유니코드상 한글은 11172 ("U+AC00:가" ~ "U+D7A3:힣") // 유니코드상 대문자는 26개 + 10진수아스키시작번호 65 // 유니코드상 소문자는 26개 + 10진수아스키시작번호 97
 		String result = "";
-		for (int i = 1; i <= 10; i++) {
-			result += "" + (char) ((Math.random() * 11172) + 0xAC00);
-		}
-		result += (char) Math.floor(Math.random() * 100) + (char) ((Math.random() * 26) + 65)
-				+ (char) ((Math.random() * 26) + 97);
+		result += (char) Math.floor(Math.random() * 100) + (char) ((Math.random() * 26) + 65) + (char) ((Math.random() * 26) + 97);
+		for (int i = 1; i <= 10; i++) { result += "" + (char) ((Math.random() * 11172) + 0xAC00); }
 		return result;
 	}
 	
@@ -59,11 +57,16 @@ class SwimyApplicationTests {
 
 	@Test /* 테스트 메서드임을 명시. 이 클래스를 JUnit으로 실행하면 @Test 애너테이션이 붙은 메서드가 실행 */
 	void testJpa_save() {
-		Question q = new Question();
-		q.setSubject(getRandomString());
-		q.setContent("내용 >> " + getLocalDate());
-		q.setCreateDate(LocalDateTime.now());
-		this.questionRepository.save(q);
+		Question q = Question.builder()
+                .subject(getRandomString())
+                .content("내용 >> " + getLocalDate().substring(0,10))
+                .createId("user02")
+                .createDate(LocalDateTime.now())
+                .build();
+		
+		Question resultQuestion = this.questionRepository.save(q);
+ 
+		//assertThat(resultQuestion.getLikeCount(), Is.is(0)); //실패...
 	}
 	 
 	//******************************//
@@ -71,8 +74,8 @@ class SwimyApplicationTests {
 	//*     ID로 동일한 1 row 찾기     *// 
 	//******************************//
 	@ParameterizedTest
-	@ValueSource(ints = {31, 32})
-	void testJqa_FindById(int id) { 
+	@ValueSource(ints = {1})
+	void testJqa_findById(int id) { 
 		Optional<Question> q = this.questionRepository.findById(id); // Optional은 메소드의 결과가 null이 될 수 있으며, null에 의해 오류가 발생할 가능성이 매우 높을 때 반환값으로만 사용
 		assertTrue(q.isPresent());
 		if(q.isPresent()) {
@@ -80,22 +83,49 @@ class SwimyApplicationTests {
 		 }
 	}
 	@ParameterizedTest
-	@ValueSource(ints = {31, 32})
-	void testJqa_FindByIdIs(int id) {
+	@ValueSource(ints = {1,2})
+	void testJqa_findByIdIs(int id) {
 		Question q = this.questionRepository.findByIdIs(id);  
 		assertTrue(null!=q);
 		if(null!=q) { log.info("debug log={}", q.getSubject(), q.getId()); }
 	}
 	
 	@ParameterizedTest
-	@ValueSource(ints = {31, 32})
-	void testJqa_FindByIdEquals(int id) {
+	@ValueSource(ints = {1,2})
+	void testJqa_findByIdEquals(int id) {
 		Question q = this.questionRepository.findByIdEquals(id);  
 		assertTrue(null!=q);
 		if(null!=q) { log.info("debug log={}", q.getSubject(), q.getId()); }
 	}
 	
+	@ParameterizedTest
+	@ValueSource(booleans = {true, false})
+	void testJqa_findByDeleteAt(boolean deleteAt) { 
+		List<Question> q = this.questionRepository.findByDeleteAt(deleteAt);  
+		log.info("testJqa_findByDeleteAt={}", q.get(0));
+		assertTrue(q.size() > 0);
+	}
 	
-	
-	
+	//******************************//
+	//*           And, Or          *//
+	//******************************//
+	//@ParameterizedTest
+	//@ValueSource(ints = {2}, booleans = {false})
+	@DisplayName("멀티파람테스트(AND)")
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+    @CsvSource({"1, false",
+                "2, true"})
+	void testJqa_findByIdAndDeleteAt(Integer id, boolean deleteAt) { 
+		List<Question> q = this.questionRepository.findByIdAndDeleteAt(id, deleteAt);  
+		//log.info("testJqa_findByIdAndDeleteAt={}", q.get(0));
+		assertTrue(q.size() > 0);
+	}
+	@DisplayName("멀티파람테스트(OR)")
+    @ParameterizedTest(name = "{index} {displayName} message={0}")
+	@CsvSource({"1, false", "2, true"})
+	void testJqa_findByIdOrDeleteAt(Integer id, boolean deleteAt) { 
+		List<Question> q = this.questionRepository.findByIdOrDeleteAt(id, deleteAt);  
+		log.info("testJqa_ffindByIdOrDeleteAt={}", q.get(0));
+		assertTrue(q.size() > 0);
+	}
 }
