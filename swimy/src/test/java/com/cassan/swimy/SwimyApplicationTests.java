@@ -1,6 +1,5 @@
 package com.cassan.swimy;
 
-import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 import java.time.LocalDateTime;
@@ -9,7 +8,10 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 import org.junit.jupiter.params.provider.ValueSource;
@@ -21,11 +23,12 @@ import com.cassan.swimy.sampler.entity.Question;
 import com.cassan.swimy.sampler.repository.QuestionRepository;
 
 import junitparams.JUnitParamsRunner;
-import junitparams.Parameters;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @SpringBootTest /* 스프링부트 테스트 클래스임을 명시 */
+//@TestMethodOrder(MethodOrderer.OrderAnnotation.class) // 문자와 숫자 조합으로 실행 순서를 결정
+@TestMethodOrder(MethodOrderer.Random.class)   // @Order 로 결정
 @RunWith(JUnitParamsRunner.class) 
 class SwimyApplicationTests {
 
@@ -56,11 +59,12 @@ class SwimyApplicationTests {
 	// -------------------------------------------------------
 
 	@Test /* 테스트 메서드임을 명시. 이 클래스를 JUnit으로 실행하면 @Test 애너테이션이 붙은 메서드가 실행 */
+	@Order(1)
 	void testJpa_save() {
 		Question q = Question.builder()
                 .subject(getRandomString())
                 .content("내용 >> " + getLocalDate().substring(0,10))
-                .createId("user02")
+                .createId("test01")
                 .createDate(LocalDateTime.now())
                 .build();
 		
@@ -78,16 +82,14 @@ class SwimyApplicationTests {
 	void testJqa_findById(int id) { 
 		Optional<Question> q = this.questionRepository.findById(id); // Optional은 메소드의 결과가 null이 될 수 있으며, null에 의해 오류가 발생할 가능성이 매우 높을 때 반환값으로만 사용
 		assertTrue(q.isPresent());
-		if(q.isPresent()) {
-			log.info("debug log={}", q.get().getSubject(), q.get().getId());
-		 }
+		// if(q.isPresent()) { log.info("debug log={}", q.get().getSubject(), q.get().getId()); }
 	}
 	@ParameterizedTest
 	@ValueSource(ints = {1,2})
 	void testJqa_findByIdIs(int id) {
 		Question q = this.questionRepository.findByIdIs(id);  
 		assertTrue(null!=q);
-		if(null!=q) { log.info("debug log={}", q.getSubject(), q.getId()); }
+		//if(null!=q) { log.info("debug log={}", q.getSubject(), q.getId()); }
 	}
 	
 	@ParameterizedTest
@@ -95,7 +97,7 @@ class SwimyApplicationTests {
 	void testJqa_findByIdEquals(int id) {
 		Question q = this.questionRepository.findByIdEquals(id);  
 		assertTrue(null!=q);
-		if(null!=q) { log.info("debug log={}", q.getSubject(), q.getId()); }
+		//if(null!=q) { log.info("debug log={}", q.getSubject(), q.getId()); }
 	}
 	
 	@ParameterizedTest
@@ -111,7 +113,7 @@ class SwimyApplicationTests {
 	//******************************//
 	//@ParameterizedTest
 	//@ValueSource(ints = {2}, booleans = {false})
-	@DisplayName("멀티파람테스트(AND)")
+	@DisplayName("JPA - AND")
     @ParameterizedTest(name = "{index} {displayName} message={0}")
     @CsvSource({"1, false",
                 "2, true"})
@@ -120,7 +122,7 @@ class SwimyApplicationTests {
 		//log.info("testJqa_findByIdAndDeleteAt={}", q.get(0));
 		assertTrue(q.size() > 0);
 	}
-	@DisplayName("멀티파람테스트(OR)")
+	@DisplayName("JPA - OR")
     @ParameterizedTest(name = "{index} {displayName} message={0}")
 	@CsvSource({"1, false", "2, true"})
 	void testJqa_findByIdOrDeleteAt(Integer id, boolean deleteAt) { 
@@ -128,4 +130,14 @@ class SwimyApplicationTests {
 		log.info("testJqa_ffindByIdOrDeleteAt={}", q.get(0));
 		assertTrue(q.size() > 0);
 	}
+	
+	@DisplayName("JPA - After")
+	@ParameterizedTest(name = "{index} {displayName} message={0}")
+	@CsvSource({"2018-08-23T22:00:00"})
+	void testJqa_findByCreateDateAfter(LocalDateTime createDate) {
+		List<Question> q = this.questionRepository.findByCreateDateAfter(createDate);  
+		assertTrue(q.size() > 0);
+	}
+	
+	
 }

@@ -3,10 +3,10 @@
         SWIMY
 init :2023-10-31
 -----------------------
-Spring 3.1 / gradle-kotlin / JPA+P6spy / Lombok / SLF4J
+Spring 3.1 / gradle-kotlin / JPA+P6spy / 	 / SLF4J
 EC2 / Mysql / 
 React
-========================
+====================	====
 
 
 
@@ -126,6 +126,11 @@ https://blog.naver.com/PostView.nhn?blogId=ka28&logNo=222355010576
  - https://gksdudrb922.tistory.com/231
 
 
+# 8Day (2023-11-16)
+ - 빽단 일시 중지
+ - 리액트 기초, 리액트 디버거 (리액트 디벨로퍼 툴)
+ - 구해줘 코딩, 리액트 1편
+
 -------------------------------------------
 
 
@@ -135,6 +140,8 @@ https://blog.naver.com/PostView.nhn?blogId=ka28&logNo=222355010576
  - https://kkambi.tistory.com/122
  - maven .m2 폴더처럼 따로 저장 경로 있음 : C:\Users\rbfl\.gradle\caches
 	
+
+
 
 -------------------------------------------
 1. Spring Boot 띄워보기
@@ -168,3 +175,10 @@ git commit --amend : 커밋메세지 수정 => https://velog.io/@mayinjanuary/gi
 
 4. jar 압축 
 https://coding-house.tistory.com/69
+
+
+6. p6spy 포맷설정
+ - https://backtony.github.io/spring/2021-08-13-spring-log-1/#p6spy%EC%9D%98-format-%EC%84%A0%ED%83%9D-%EA%B3%BC%EC%A0%95
+ 
+ 
+ 

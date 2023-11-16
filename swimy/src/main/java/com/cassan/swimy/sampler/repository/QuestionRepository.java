@@ -34,55 +34,15 @@ public interface QuestionRepository extends JpaRepository<Question, Integer> {
 	// … where x.lastname = ?1 and/or x.firstname = ?2
 	List<Question> findByIdAndDeleteAt(Integer id, boolean deleteAt);
 	List<Question> findByIdOrDeleteAt(Integer id, boolean deleteAt);
-
 	
-	
-	//////////////////////////////////////////// TODO
 	// Between, After, Before
 	// … where x.startDate between ?1 and ?2
 	// … where x.startDate > ?1
 	// … where x.startDate < ?1
-	Optional<?> findByCreateDateBetween(int startRanking, int endRanking);
-	Optional<?> findByCreateDateAfter(LocalDateTime createDate);
-	Optional<?> findByCreateDateBefore(LocalDateTime createDate);
-
-	// IsNull, Null /IsNotNull, NotNull
-	// … where x.age is null
-	// … where x.age not null
-	Optional<?> findByContentIsNull(String content);
-	// Optional<?> findByContentIsNotNull(String content);
-
-	// Like, NotLike
-	// … where x.firstname like ?1
-	// … where x.firstname not like ?1… where x.firstname not like ?1
-	Optional<?> findBySubjectLike(String subject);
-	Optional<?> findBySubjectNotLike(String subject);
-
-	// LessThan, LessThanEqual
-	// … where x.age < ?1
-	// … where x.age <= ?1
-	Optional<?> findByIdLessThan(int id);
-	Optional<?> findByIdLessThanEqual(int id);
-
-	// GreaterThan, GreaterThanEqual
-	// … where x.age > ?1
-	// … where x.age >= ?1
-	Optional<?> findByIdGreaterThan(int id);
-	Optional<?> findByIdGreaterThanEqual(int id);
-
-	// Containing, StartingWith, EndingWith
-	// … where x.firstname like ?1 (parameter bound wrapped in %) %파람%
-	// … where x.firstname like ?1 (parameter bound with appended %) 파람%
-	// … where x.firstname like ?1 (parameter bound with prepended %) => %파람
-	Optional<?> findByContentContaining(String content);
-	Optional<?> findByContentStartingWith(String content);
-	Optional<?> findByContentEndingWith(String content);
-
-	// OrderBy
-	// … where x.age = ?1 order by x.lastname desc
-	Optional<?> findByUNKNOWNOrderBySubjectDesc(String UNKNOWN, String Subject);
-
-	// Not, In, NotIn
-	// … where x.lastname <> ?1
-
+//	List<Question> findByCreateDateBetween(int startRanking, int endRanking); 
+	List<Question> findByCreateDateAfter(LocalDateTime createDate);
+//	Optional<?> findByCreateDateBefore(LocalDateTime createDate);
+	
+	
+	
 }
