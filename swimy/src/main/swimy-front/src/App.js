@@ -1,7 +1,11 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
+//import TodoReact from './TodoReact.js'
+import TodoReact from './Todo'
+import AwesomeGreeting from './Awesome'
+import ClickCounter from './ClickCounter'
 
 function App() {
   const [message, setMessage] = useState("");
@@ -9,63 +13,50 @@ function App() {
   const [lives, setLives] = useState([]);
   const [page, setPage] = useState(1);
 
-  const [todos, setTodos] = useState([
-    {
-      id :1,
-      text: 'React 공부하기',
-      isCompeted: false
-    },
-    {
-      id :2,
-      text: 'React 복습하기',
-      isCompeted: false
-    },
-    {
-      id :3,
-      text: 'React 토이프로젝트',
-      isCompeted: false
-    }
-  ]);
 
 
 
   useEffect(() => {
     fetch('/test/hello')
-        .then(response => response.text())
-        .then(message => {
-            setMessage(message); //  {message} 
-        });
-  },[])
+      .then(response => response.text())
+      .then(message => {
+        setMessage(message); //  {message} 
+      });
+  }, [])
 
-  const handleClick = (index) => {
-    const nextTodos = [...todos]
-    //nextTodos[index].isCompeted = true
-    nextTodos[index].isCompeted  = !nextTodos[index].isCompeted // true
 
-    setTodos(nextTodos)
-  }
   return (
-    <div className="App">
-
+    <div className="App"> 
       Hello React!
-      <ul>
-        {todos.map((todo, i) => (
-          <li key={todo.id} onClick={() => handleClick(i)}>
-               {todo.isCompeted ? '💚': ''} {todo.text}
-          </li>
-        ))}
-      </ul>
-    
-  
+      <div>
+        컴포넌트 분리하기 1 : TodoReact
+        <TodoReact></TodoReact>
+      </div>
 
-        <button className='btn btn-primary' onClick={()=>{
-          axios.get('https://jsonplaceholder.typicode.com/posts').then((result)=>{
-            console.log(result.data);
-          })
-          .catch(()=>{
+
+      <div>
+        컴포넌트 분리하기 2 : props 를 전달하기
+         - props 는 파라미터성
+        <AwesomeGreeting username="Kim K"/>
+        <AwesomeGreeting username="You H"/>
+        <AwesomeGreeting username="Hong O"/>
+      </div>
+
+
+      <div>
+        컴포넌트 분리하기 3: ClcikCounter 만들기 + 리액트 렌더링 순서그려보기
+        <ClickCounter/>
+         - 보완점 확인하기 (40:00)
+      </div>
+
+      <button className='btn btn-primary' onClick={() => {
+        axios.get('https://jsonplaceholder.typicode.com/posts').then((result) => {
+          console.log(result.data);
+        })
+          .catch(() => {
             console.log('fail');
           })
-        }}>더보기</button> 
+      }}>더보기</button>
 
     </div>
   );
