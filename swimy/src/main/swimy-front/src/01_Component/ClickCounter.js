@@ -21,6 +21,8 @@ function ClickCounter(){
         <div className="ClickCounter">
             <div>클릭한 횟수 : {cc}</div> 
             <button onClick={() => setCc(cc+1)}>클릭</button>
+
+            <button onClick={() => setCc(0)}>초기화</button>
         </div>
     )
 }

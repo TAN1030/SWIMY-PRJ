@@ -3,9 +3,11 @@ import axios from 'axios';
 import logo from './logo.svg';
 import './App.css';
 //import TodoReact from './TodoReact.js'
-import TodoReact from './Todo'
-import AwesomeGreeting from './Awesome'
-import ClickCounter from './ClickCounter'
+import TodoReact from './01_Component/Todo'
+import AwesomeGreeting from './01_Component/Awesome'
+import ClickCounter from './01_Component/ClickCounter'
+import Parent from './04_ParentChildTest/Parent'
+import Layout from './05_Layout/Layout';
 
 function App() {
   const [message, setMessage] = useState("");
@@ -29,13 +31,13 @@ function App() {
     <div className="App"> 
       Hello React!
       <div>
-        컴포넌트 분리하기 1 : TodoReact
+        1. 컴포넌트 분리하기 1 : TodoReact
         <TodoReact></TodoReact>
       </div>
 
 
       <div>
-        컴포넌트 분리하기 2 : props 를 전달하기
+        2. 컴포넌트 분리하기 2 : props 를 전달하기 (부모→자식)
          - props 는 파라미터성
         <AwesomeGreeting username="Kim K"/>
         <AwesomeGreeting username="You H"/>
@@ -44,10 +46,23 @@ function App() {
 
 
       <div>
-        컴포넌트 분리하기 3: ClcikCounter 만들기 + 리액트 렌더링 순서그려보기
+        3. 컴포넌트 분리하기 3: ClcikCounter 만들기
         <ClickCounter/>
-         - 보완점 확인하기 (40:00)
       </div>
+
+      <div>
+        4. 부모자식간의 데이터 전달하기
+        <Parent />
+      </div>
+
+      <div>
+        5. Layout 처리
+        <Layout>
+            hello
+        </Layout>
+
+      </div>
+
 
       <button className='btn btn-primary' onClick={() => {
         axios.get('https://jsonplaceholder.typicode.com/posts').then((result) => {
@@ -61,5 +76,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;
