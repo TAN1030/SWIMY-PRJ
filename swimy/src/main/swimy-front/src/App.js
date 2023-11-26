@@ -8,6 +8,11 @@ import AwesomeGreeting from './01_Component/Awesome'
 import ClickCounter from './01_Component/ClickCounter'
 import Parent from './04_ParentChildTest/Parent'
 import Layout from './05_Layout/Layout';
+ 
+
+import { Routes, Route, BrowserRouter, useNavigate, Link } from "react-router-dom"
+
+
 
 function App() {
   const [message, setMessage] = useState("");
@@ -15,8 +20,14 @@ function App() {
   const [lives, setLives] = useState([]);
   const [page, setPage] = useState(1);
 
+    /* 
+  const navigate = useNavigate(); 
 
 
+  const LinkToPage =(uri) => {
+    navigate(uri);
+  }
+*/
 
   useEffect(() => {
     fetch('/test/hello')
@@ -56,10 +67,14 @@ function App() {
       </div>
 
       <div>
-        5. Layout 처리
-        <Layout>
-            hello
-        </Layout>
+        5. 페이지를 이동해서 Layout 처리 테스트하기 <br/>
+        1) url에 /Layout 을 입력하면 이동하기
+        <hr/>
+        
+        2) 버튼 이동 2
+ 
+        3) props 나 state 넘겨보기
+    
 
       </div>
 

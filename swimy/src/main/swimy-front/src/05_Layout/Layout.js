@@ -4,10 +4,8 @@ import Footer from "./Footer";
 
 export default function Layout({ children }){
     return (
-        <div className="Layout">
-            <Header/>
-            <main>{children}</main>
-            <Footer now={new Date()}/>
-        </div>
+        <>
+        이 페이지가 삽입되지만 사실은 버튼을 눌렀을때 이동해야함
+        </>
     )
 }
